@@ -1,0 +1,7 @@
+{
+  "package": {
+    "initLoad": true,
+    "indexRouter": "/demo1/demo-page",
+    "registerRegex": "\\/sample2-demo1\\/"
+  }
+}

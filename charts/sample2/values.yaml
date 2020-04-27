@@ -1,0 +1,57 @@
+# Default values for api-gateway.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: registry.cn-hangzhou.aliyuncs.com/hzero-hzero/hzero-front
+
+# preJob:
+#   preConfig:
+#     mysql:
+#       host: localhost
+#       port: 3306
+#       username: choerodon
+#       password: 123456
+#       dbname: iam_service
+
+service:
+  enable: false
+  type: ClusterIP
+  port: 80
+  name: hzero-front-demo
+
+ingress:
+  enable: false
+
+env:
+  open:
+    BUILD_BASE_PATH: /
+    BUILD_PUBLIC_URL: /
+    BUILD_WEBSOCKET_HOST: ws://ws.hft.jajabjbj.top
+    BUILD_BPM_HOST: http://bpm.hft.jajabjbj.top
+    BUILD_CLIENT_ID: localhost
+    BUILD_API_HOST: http://backend.hft.jajabjbj.top  # http://192.168.12.101:8080/
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+    BUILD_PLATFORM_VERSION: SAAS
+    IM_ENABLE: BUILD_IM_ENABLE # // im是否启用，true/false
+    IM_WEBSOCKET_HOST: BUILD_IM_WEBSOCKET_HOST # // im websocket 地址
+    TRACE_LOG_ENABLE: BUILD_TRACE_LOG_ENABLE # // TraceLog日志追溯分析是否启用，true/false
+    CUSTOMIZE_ICON_NAME: BUILD_CUSTOMIZE_ICON_NAME # // 客制化的iconfont font family 名称
+
+logs:
+  parser: nginx
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources,such as Minikube. If you do want to specify resources,uncomment the following
+  # lines,adjust them as necessary,and remove the curly braces after 'resources:'.
+  limits:
+    # cpu: 100m
+    # memory: 2Gi
+  requests:
+    # cpu: 100m
+    # memory: 1Gi
+

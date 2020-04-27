@@ -50,7 +50,7 @@ docker_build:
         rm -rf $TEMP_DIR
       fi
       echo "gitlab-ci -- 开始安装依赖"
-      yarn --cache-folder $TEMP_DIR/yarn-cache
+      yarn
       echo "gitlab-ci -- 结束安装依赖"
   }
 

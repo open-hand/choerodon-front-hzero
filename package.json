@@ -78,7 +78,7 @@
     "prettier": "prettier --write ./src/**/**/**/*",
     "tree": "tree -I node_modules -L 3",
     "release": "standard-version",
-    "icon": "npx cross-env ICON_FONT_URL=//at.alicdn.com/t/font_1813269_qbjqj4wedlo.css node scripts/icon.js"
+    "icon": "npx cross-env ICON_FONT_URL=//at.alicdn.com/t/font_1813269_wndpdawsr7.css node scripts/icon.js"
   },
   "husky": {
     "hooks": {

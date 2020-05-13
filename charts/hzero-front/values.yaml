@@ -38,7 +38,7 @@ env:
     IM_ENABLE: BUILD_IM_ENABLE # // im是否启用，true/false
     IM_WEBSOCKET_HOST: BUILD_IM_WEBSOCKET_HOST # // im websocket 地址
     TRACE_LOG_ENABLE: BUILD_TRACE_LOG_ENABLE # // TraceLog日志追溯分析是否启用，true/false
-    CUSTOMIZE_ICON_NAME: BUILD_CUSTOMIZE_ICON_NAME # // 客制化的iconfont font family 名称
+    CUSTOMIZE_ICON_NAME: icon-font # // 客制化的iconfont font family 名称
 
 logs:
   parser: nginx

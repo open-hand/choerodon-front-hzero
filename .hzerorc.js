@@ -19,6 +19,9 @@ module.exports =  {
       "name": 'hzero-front-hmnt'
     },
     {
+      "name": 'hzero-front-hfile',
+    },
+    {
       "name": "sample2-demo1"
     }
   ],

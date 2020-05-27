@@ -36,6 +36,7 @@ API_HOST: BUILD_API_HOST
 WEBSOCKET_HOST: BUILD_WEBSOCKET_HOST
 SKIP_TS_CHECK_IN_START: false
 SKIP_ESLINT_CHECK_IN_START: false
+TOP_MENU_UNION_LABEL: false
 
 END
 
@@ -68,7 +69,7 @@ find ./html -name '*.js' | xargs sed -i "s BUILD_IM_WEBSOCKET_HOST $BUILD_IM_WEB
 find ./html -name '*.js' | xargs sed -i "s BUILD_TRACE_LOG_ENABLE $BUILD_TRACE_LOG_ENABLE g"
 find ./html -name '*.js' | xargs sed -i "s BUILD_CUSTOMIZE_ICON_NAME $BUILD_CUSTOMIZE_ICON_NAME g"
 
-find ./html -name '*.js' | xargs sed -i "s BUILD_TOP_MENU_UNION_LABEL false g"
+find ./html -name '*.js' | xargs sed -i "s BUILD_TOP_MENU_UNION_LABEL $BUILD_TOP_MENU_UNION_LABEL g"
 
 # 这里实现你的部署逻辑 deploy ./html
 

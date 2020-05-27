@@ -36,7 +36,6 @@ API_HOST: BUILD_API_HOST
 WEBSOCKET_HOST: BUILD_WEBSOCKET_HOST
 SKIP_TS_CHECK_IN_START: false
 SKIP_ESLINT_CHECK_IN_START: false
-TOP_MENU_UNION_LABEL: false
 
 END
 
@@ -54,7 +53,6 @@ export BUILD_WEBSOCKET_HOST=ws://ws.hft.jajabjbj.top
 export BUILD_PLATFORM_VERSION=SAAS
 export BUILD_BPM_HOST=http://bpm.jd1.jajabjbj.top
 export BUILD_IM_WEBSOCKET_HOST=ws://im.ws.jd1.jajabjbj.top
-export BUILD_TOP_MENU_UNION_LABEL=false
 
 find ./html -name '*.js' | xargs sed -i "s BUILD_BASE_PATH $BUILD_BASE_PATH g"
 find ./html -name '*.js' | xargs sed -i "s /BUILD_PUBLIC_URL/ $BUILD_PUBLIC_URL g"
@@ -68,7 +66,6 @@ find ./html -name '*.js' | xargs sed -i "s BUILD_IM_ENABLE $BUILD_IM_ENABLE g"
 find ./html -name '*.js' | xargs sed -i "s BUILD_IM_WEBSOCKET_HOST $BUILD_IM_WEBSOCKET_HOST g"
 find ./html -name '*.js' | xargs sed -i "s BUILD_TRACE_LOG_ENABLE $BUILD_TRACE_LOG_ENABLE g"
 find ./html -name '*.js' | xargs sed -i "s BUILD_CUSTOMIZE_ICON_NAME $BUILD_CUSTOMIZE_ICON_NAME g"
-find ./html -name '*.js' | xargs sed -i "s BUILD_TOP_MENU_UNION_LABEL false g"
 
 # 这里实现你的部署逻辑 deploy ./html
 

@@ -1,32 +1,32 @@
 module.exports =  {
   "packages": [
-    // {
-    //   "name": "hzero-front-hiam"
-    // },
-    // {
-    //   "name": "hzero-front-hpfm"
-    // },
-    // {
-    //   "name": "hzero-front-hcnf"
-    // },
-    // {
-    //   "name": "hzero-front-hmsg"
-    // },
-    // {
-    //   "name": "hzero-front-himp"
-    // },
-    // {
-    //   "name": 'hzero-front-hmnt'
-    // },
-    // {
-    //   "name": 'hzero-front-hfile',
-    // },
-    // {
-    //   "name": "sample2-demo1"
-    // },
-    // {
-    //   "name": "hzero-front-hadm"
-    // }
+    {
+      "name": "hzero-front-hiam"
+    },
+    {
+      "name": "hzero-front-hpfm"
+    },
+    {
+      "name": "hzero-front-hcnf"
+    },
+    {
+      "name": "hzero-front-hmsg"
+    },
+    {
+      "name": "hzero-front-himp"
+    },
+    {
+      "name": 'hzero-front-hmnt'
+    },
+    {
+      "name": 'hzero-front-hfile',
+    },
+    {
+      "name": "sample2-demo1"
+    },
+    {
+      "name": "hzero-front-hadm"
+    }
   ],
   "hzeroBoot": "hzero-boot/lib/pathInfo",
   // webpackConfig: (config, webpackConfigType) => { // webpack 配置修改

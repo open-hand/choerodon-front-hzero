@@ -68,8 +68,7 @@ find ./html -name '*.js' | xargs sed -i "s BUILD_IM_ENABLE $BUILD_IM_ENABLE g"
 find ./html -name '*.js' | xargs sed -i "s BUILD_IM_WEBSOCKET_HOST $BUILD_IM_WEBSOCKET_HOST g"
 find ./html -name '*.js' | xargs sed -i "s BUILD_TRACE_LOG_ENABLE $BUILD_TRACE_LOG_ENABLE g"
 find ./html -name '*.js' | xargs sed -i "s BUILD_CUSTOMIZE_ICON_NAME $BUILD_CUSTOMIZE_ICON_NAME g"
-
-find ./html -name '*.js' | xargs sed -i "s BUILD_TOP_MENU_UNION_LABEL $BUILD_TOP_MENU_UNION_LABEL g"
+find ./html -name '*.js' | xargs sed -i "s BUILD_TOP_MENU_UNION_LABEL false g"
 
 # 这里实现你的部署逻辑 deploy ./html
 

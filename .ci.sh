@@ -54,7 +54,7 @@ export BUILD_PLATFORM_VERSION=SAAS
 export BUILD_BPM_HOST=http://bpm.jd1.jajabjbj.top
 export BUILD_IM_WEBSOCKET_HOST=ws://im.ws.jd1.jajabjbj.top
 export BUILD_TOP_MENU_LABELS=HZERO_MENU
-export BUILD_TOP_MENU_UNION_LABEL=false
+export BUILD_TOP_MENU_UNION_LABEL=true
 
 find ./html -name '*.js' | xargs sed -i "s BUILD_BASE_PATH $BUILD_BASE_PATH g"
 find ./html -name '*.js' | xargs sed -i "s /BUILD_PUBLIC_URL/ $BUILD_PUBLIC_URL g"

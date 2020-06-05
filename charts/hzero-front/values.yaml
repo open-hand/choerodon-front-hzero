@@ -41,9 +41,9 @@ env:
     TRACE_LOG_ENABLE: BUILD_TRACE_LOG_ENABLE # // TraceLog日志追溯分析是否启用，true/false
     CUSTOMIZE_ICON_NAME: BUILD_CUSTOMIZE_ICON_NAME # // 客制化的iconfont font family 名称
     TOP_MENU_LABELS: HZERO_MENU
-    TOP_MENU_UNION_LABEL: false
+    TOP_MENU_UNION_LABEL: true
     BUILD_TOP_MENU_LABELS: HZERO_MENU
-    BUILD_TOP_MENU_UNION_LABEL: false
+    BUILD_TOP_MENU_UNION_LABEL: true
 
 logs:
   parser: nginx

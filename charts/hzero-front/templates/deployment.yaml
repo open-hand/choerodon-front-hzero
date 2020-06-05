@@ -4,7 +4,9 @@ metadata:
   name: {{ .Release.Name }}
   labels:
 {{ include "service.labels.standard" . | indent 4 }}
+{{- if .Values.logs.enabled }}
 {{ include "service.logging.deployment.label" . | indent 4 }}
+{{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -12,12 +14,19 @@ spec:
 {{ include "service.labels.standard" . | indent 6 }}
   template:
     metadata:
+      annotations:
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations | trimSuffix "\n" | indent 8 }}
+{{- end }}
       labels:
+{{- if .Values.podLabels }}
+{{ toYaml .Values.podLabels | indent 8 }}
+{{- end }}
 {{ include "service.labels.standard" . | indent 8 }}
     spec:
       containers:
         - name: {{ .Release.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Chart.Version }}"
+          image: {{ include "service.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
 {{- range $name, $value := .Values.env.open }}
@@ -28,8 +37,19 @@ spec:
 {{- end }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 8080
               protocol: TCP
           resources:
 {{ toYaml .Values.resources | indent 12 }}
-
+{{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+{{- end }}

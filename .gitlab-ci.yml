@@ -12,6 +12,8 @@ node_build:
     - node_build
   only:
     - master
+    - tags
+    - /^.*release.*$/
 
 docker_build:
   image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.9.1
@@ -21,6 +23,8 @@ docker_build:
     - chart_build
   only:
     - master
+    - tags
+    - /^.*release.*$/
 
 .auto_devops: &auto_devops |
   http_status_code=`curl -o .auto_devops.sh -s -m 10 --connect-timeout 10 -w %{http_code} "${CHOERODON_URL}/devops/ci?token=${Token}&type=front"`

@@ -13,7 +13,7 @@ find /usr/share/nginx/html -name '*.js' | xargs sed -i "s BUILD_IM_ENABLE $BUILD
 find /usr/share/nginx/html -name '*.js' | xargs sed -i "s BUILD_IM_WEBSOCKET_HOST $BUILD_IM_WEBSOCKET_HOST g"
 find /usr/share/nginx/html -name '*.js' | xargs sed -i "s BUILD_TRACE_LOG_ENABLE $BUILD_TRACE_LOG_ENABLE g"
 find /usr/share/nginx/html -name '*.js' | xargs sed -i "s BUILD_CUSTOMIZE_ICON_NAME $BUILD_CUSTOMIZE_ICON_NAME g"
-#find /usr/share/nginx/html -name '*.js' | xargs sed -i "s BUILD_TOP_MENU_LABELS $BUILD_TOP_MENU_LABELS g"
-#find /usr/share/nginx/html -name '*.js' | xargs sed -i "s BUILD_TOP_MENU_UNION_LABEL $BUILD_TOP_MENU_UNION_LABEL g"
+find /usr/share/nginx/html -name '*.js' | xargs sed -i "s BUILD_TOP_MENU_LABELS $BUILD_TOP_MENU_LABELS g"
+find /usr/share/nginx/html -name '*.js' | xargs sed -i "s BUILD_TOP_MENU_UNION_LABEL $BUILD_TOP_MENU_UNION_LABEL g"
 
 exec "$@"

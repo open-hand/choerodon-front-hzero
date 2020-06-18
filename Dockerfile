@@ -1,7 +1,6 @@
 FROM registry.cn-shanghai.aliyuncs.com/c7n/frontbase:0.8.0
 
 COPY ./dist /usr/local/openresty/nginx/html
-COPY ./docker/default.conf /etc/nginx/conf.d/
 COPY ./docker/enterpoint.sh /usr/local/openresty/nginx/html
 
 RUN chmod +x /usr/local/openresty/nginx/html/enterpoint.sh \

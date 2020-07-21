@@ -19,7 +19,7 @@
   "dependencies": {
     "choerodon-ui": "*",
     "core-js": "^3.6.4",
-    "hzero-front": "~1.4.0-beta.6",
+    "hzero-front": "1.4.0",
     "hzero-front-hcnf": "~1.2.0",
     "hzero-front-hiam": "~1.4.0-beta.3",
     "hzero-front-himp": "~1.4.0-beta.3",

@@ -30,7 +30,8 @@
     "hzero-front-hadm": "1.4.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "wget": "0.0.1"
+    "wget": "0.0.1",
+    "copy-to-clipboard": "^3.2.0"
   },
   "resolutions": {
     "conventional-changelog": "~3.0.6",

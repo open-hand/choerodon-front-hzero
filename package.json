@@ -24,7 +24,7 @@
     "hzero-front-hiam": "1.4.0",
     "hzero-front-himp": "1.4.0",
     "hzero-front-hmnt": "1.4.0",
-    "hzero-front-hmsg": "1.4.0",
+    "hzero-front-hmsg": "1.4.1-alpha.0",
     "hzero-front-hpfm": "1.4.0",
     "hzero-front-hfile": "1.4.0",
     "hzero-front-hadm": "1.4.0",
@@ -55,7 +55,7 @@
   },
   "description": "hzero-demo",
   "author": "",
-  "version": "0.0.2",
+  "version": "0.23.0",
   "eslintConfig": {
     "extends": "react-app"
   },

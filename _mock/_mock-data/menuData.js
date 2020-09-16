@@ -60,21 +60,6 @@ module.exports = [
       },
       {
         _token:
-          'keUs24wdEJx8Lgl9KbyHaW3Pyg8anglhvllGobP5iHURKcmpH9O8BuYh9Jy9UAI9PcXhdkKzZY+kPI/Jv6l3/A==',
-        id: 1587,
-        code: 'hzero.hzero-front-demo.sample-demo-page',
-        name: '页面3',
-        quickIndex: '',
-        level: 'site',
-        parentId: 1580,
-        type: 'menu',
-        sort: 0,
-        route: '/hzero-front-demo-demo1/test1',
-        parentName: '演示菜单',
-        viewCode: 'sample-demo-page',
-      },
-      {
-        _token:
           'keUs24wdEJx8Lgl9KbyHaW3Pyg8anglhvllGobP5iHURKcmpH9O8BuYh9Jy9UAI9ZVp1JItX/5tuPPs6G0ZjzQ==',
         id: 1589,
         code: 'hzero.hzero-front-demo.test33',

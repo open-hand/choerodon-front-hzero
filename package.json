@@ -83,13 +83,6 @@
     "release": "standard-version",
     "icon": "npx cross-env ICON_FONT_URL=//at.alicdn.com/t/font_1813269_wndpdawsr7.css node scripts/icon.js"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint-staged",
-      "post-merge": "git submodule update",
-      "post-checkout": "git submodule update"
-    }
-  },
   "browserslist": [
     ">0.2%",
     "not dead",

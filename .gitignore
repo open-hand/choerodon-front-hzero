@@ -20,6 +20,7 @@ build
 dist-ext
 
 # misc
+.yarn.lock
 .DS_Store
 .env.local
 .env.development.local

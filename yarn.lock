@@ -1,0 +1,4 @@
+"@types/history@*":
+  version "4.7.7"
+  resolved "http://nexus.saas.hand-china.com/repository/hzero-npm-group/@types/history/-/history-4.7.7.tgz#613957d900fab9ff84c8dfb24fa3eef0c2a40896"
+  integrity sha512-2xtoL22/3Mv6a70i4+4RB7VgbDDORoWwjcqeNysojZA0R7NK17RbY5Gof/2QiFfJgX+KkWghbwJ+d/2SB8Ndzg==

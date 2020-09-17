@@ -5,6 +5,7 @@ import { ButtonColor } from 'choerodon-ui/pro/lib/button/enum';
 import { TableButtonType } from 'choerodon-ui/pro/lib/table/enum';
 import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
 import { getCurrentOrganizationId } from 'utils/utils';
+// @ts-ignore
 import commonConfig from '@common/config/commonConfig';
 import {
   useDataSet,

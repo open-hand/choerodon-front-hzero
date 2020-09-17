@@ -1,4 +1,4 @@
-import commonConfig from '@common/config/commonConfig';
+import commonConfig from '@common/config/commonConfig.ts';
 
 export class ConfigProps {
   /**

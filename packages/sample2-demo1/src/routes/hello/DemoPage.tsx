@@ -7,7 +7,7 @@ import { ButtonColor } from 'choerodon-ui/pro/lib/button/enum';
 import { TableButtonType } from 'choerodon-ui/pro/lib/table/enum';
 import { Buttons } from 'choerodon-ui/pro/lib/table/Table';
 import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
-import { getCurrentOrganizationId } from 'utils/utils';
+// import { getCurrentOrganizationId } from 'utils/utils';
 import commonConfig from '@common/config/commonConfig';
 import {
   useDataSet,
@@ -178,37 +178,7 @@ const HelloWorldPage: React.FC = () => {
 
   const buttons = [TableButtonType.add, 'delete' as Buttons];
 
-  return (
-    <PageHeaderWrapper
-      header={
-        <Button color={'primary' as ButtonColor} onClick={() => tableDS.submit()}>
-          提交
-        </Button>
-      }
-      title="Hello World"
-    >
-      <Table
-        queryFieldsLimit={3}
-        dataSet={tableDS}
-        queryFields={{
-          state2: <SelectBox mode={ViewMode.button} />,
-        }}
-        columns={columns}
-        buttons={buttons}
-        pagination={{
-          showQuickJumper: true,
-          // pageSize: 20,
-          pageSizeOptions: ['20', '40'],
-          // page: 4,
-        }}
-      />
-      <pre>当前在第 {currentPage} 页</pre>
-      <p>{isSelected ? '当前勾选了数据' : '当前没有勾选数据'}</p>
-      <p>
-        css modules 测试: <span className={styles['test-cls']}>{styles['test-cls']}</span>
-      </p>
-    </PageHeaderWrapper>
-  );
+  return '';
 };
 
 export default HelloWorldPage;

@@ -4,7 +4,7 @@ import { DataSet, Table, Button } from 'choerodon-ui/pro';
 import { ButtonColor } from 'choerodon-ui/pro/lib/button/enum';
 import { TableButtonType } from 'choerodon-ui/pro/lib/table/enum';
 import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
-import { getCurrentOrganizationId } from 'utils/utils';
+// import { getCurrentOrganizationId } from 'utils/utils';
 import commonConfig from '@common/config/commonConfig';
 import {
   useDataSet,
@@ -181,25 +181,7 @@ const HelloWorldPage: React.FC = () => {
 
   const buttons = [TableButtonType.add, TableButtonType.delete];
 
-  return (
-    <PageHeaderWrapper
-    title="Hello World"
-    header={
-      <Button color={ButtonColor.primary} onClick={() => tableDS.submit()}>
-        提交
-      </Button>
-    }
-    >
-      <Table
-        queryFieldsLimit={3}
-        dataSet={tableDS}
-        columns={columns}
-        buttons={buttons}
-      />
-      <pre>当前在第 {currentPage} 页</pre>
-      <p>{isSelected ? '当前勾选了数据' : '当前没有勾选数据'}</p>
-    </PageHeaderWrapper>
-  );
+  return '';
 };
 
 export default HelloWorldPage;

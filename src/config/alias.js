@@ -10,7 +10,7 @@ module.exports = {
   '@/assets': path.resolve(paths.appRootPath, 'src/assets'),
   '@': path.resolve(paths.appPath, 'src'),
 
-  components: 'hzero-front/src/components/',
-  utils: 'hzero-front/src/utils/',
-  services: 'hzero-front/src/services/',
+  components: 'hzero-front/lib/components/',
+  utils: 'hzero-front/lib/utils/',
+  services: 'hzero-front/lib/services/',
 };

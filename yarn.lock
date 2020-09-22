@@ -11501,14 +11501,6 @@ hzero-cli-plugin-ui-blocks@^2.1.11:
     ora "3.4.0"
     uppercamelcase "3.0.0"
 
-hzero-cli-plugin-ui-tasks@^2.1.2:
-  version "2.1.7"
-  resolved "http://nexus.saas.hand-china.com/repository/hzero-npm-group/hzero-cli-plugin-ui-tasks/-/hzero-cli-plugin-ui-tasks-2.1.7.tgz#db7b113d274a071d62d79793d136e8daa7cefccc"
-  integrity sha512-h2UMB18YeLJPMXDNW8LDYhWzYH3oaPaEweWgfxJwxanOrjmgLD9TAfEYUWR0KIWpsenUzNncbS4f6lOU8CDjYg==
-  dependencies:
-    binary-mirror-config "1.20.3"
-    umi-webpack-bundle-analyzer "^3.5.0"
-
 hzero-cli-preset-ui@2.1.16:
   version "2.1.16"
   resolved "http://nexus.saas.hand-china.com/repository/hzero-npm-group/hzero-cli-preset-ui/-/hzero-cli-preset-ui-2.1.16.tgz#31eef85f7c06786fbe16a334316fe050e49d8633"

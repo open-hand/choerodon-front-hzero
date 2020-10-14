@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @ts-nocheck
 
 import React from 'react';
@@ -8,6 +9,7 @@ import { TableButtonType } from 'choerodon-ui/pro/lib/table/enum';
 import { Buttons } from 'choerodon-ui/pro/lib/table/Table';
 import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
 import { getCurrentOrganizationId } from 'utils/utils';
+// @ts-ignore
 import commonConfig from '@common/config/commonConfig';
 import {
   useDataSet,

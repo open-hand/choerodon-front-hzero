@@ -88,8 +88,8 @@
     "paths": {
       "components/*": ["./node_modules/hzero-front/lib/components/*",  "../../node_modules/hzero-front/lib/components/*", "./../../../node_modules/hzero-front/lib/components/*", "./../../../../../node_modules/hzero-front/lib/components/*"],
       "utils/*": ["./node_modules/hzero-front/lib/utils/*", "../../node_modules/hzero-front/lib/utils/*", "./../../../node_modules/hzero-front/lib/utils/*", "./../../../../../node_modules/hzero-front/lib/utils/*"],
-      
-      "@common/*": ["./packages/sample2-common/lib/*", "../sample2-common/lib/*"],
+
+      "@common/*": ["./packages/sample2-common/src/*", "../sample2-common/src/*"],
       "@src/*": ["./src/*", "./node_modules/hzero-front/lib/*"]
     }
   },

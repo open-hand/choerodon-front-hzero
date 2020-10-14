@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-ignore
 import commonConfig from '@common/config/commonConfig';
 
 export class ConfigProps {

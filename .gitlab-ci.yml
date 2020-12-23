@@ -6,7 +6,6 @@ stages:
   - sonar
 
 node_build:
-  image: registry.cn-hangzhou.aliyuncs.com/hzero-cli/cifront:0.0.1
   stage: node_build
   script:
     - node_module
@@ -18,7 +17,6 @@ node_build:
     - /^.*release.*$/
 
 docker_build:
-  image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.9.1
   stage: docker_build
   script:
     - docker_build

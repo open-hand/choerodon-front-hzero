@@ -6,7 +6,7 @@ stages:
   - sonar
 
 node_build:
-  image: yishudia/cibase:0.11.2
+  image: yishuida/cibase:0.11.2
   stage: node_build
   script:
     - node_module

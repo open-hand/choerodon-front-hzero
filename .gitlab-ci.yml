@@ -1,4 +1,4 @@
-image: yishuida/cibase:0.11.2
+image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.11.0
 
 stages:
   - node_build
@@ -6,7 +6,7 @@ stages:
   - sonar
 
 node_build:
-  image: registry.cn-hangzhou.aliyuncs.com/hzero-cli/cifront:0.0.1
+  image: yishudia/cibase:0.11.2
   stage: node_build
   script:
     - node_module

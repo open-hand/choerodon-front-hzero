@@ -1,11 +1,10 @@
-
   import {
     API_HOST,
     CLIENT_ID,
     BPM_HOST,
     WFP_EDITOR,
     WEBSOCKET_URL,
-    IM_ENABLE,
+    // IM_ENABLE,
     CUSTOMIZE_ICON_NAME,
     HZERO_PLATFORM,
     HZERO_IAM,
@@ -91,7 +90,7 @@ export class ConfigProps {
   BPM_HOST: string = BPM_HOST;
   WFP_EDITOR: string = WFP_EDITOR;
   WEBSOCKET_URL: string = WEBSOCKET_URL;
-  IM_ENABLE: string = IM_ENABLE;
+//   IM_ENABLE: string = IM_ENABLE;
   CUSTOMIZE_ICON_NAME: string = CUSTOMIZE_ICON_NAME;
   HZERO_PLATFORM: string = HZERO_PLATFORM;
   HZERO_IAM: string = HZERO_IAM;

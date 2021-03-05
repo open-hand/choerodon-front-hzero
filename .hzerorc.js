@@ -28,7 +28,7 @@ module.exports =  {
       "name": "hzero-front-hadm"
     },
     {
-      "name": "hzero-front-hwfp"
+      "name": "hzero-front-hwkf"
     }
   ],
   "hzeroBoot": "hzero-boot/lib/pathInfo",

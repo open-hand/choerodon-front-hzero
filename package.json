@@ -28,7 +28,7 @@
     "hzero-front-hpfm": "1.5.0",
     "hzero-front-hfile": "1.5.0",
     "hzero-front-hadm": "1.5.1",
-    "hzero-front-hwkf": "1.5.0",
+    "hzero-front-hwkf": "1.5.1-beta.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "wget": "0.0.1",

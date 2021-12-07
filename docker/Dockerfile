@@ -1,4 +1,4 @@
-FROM registry.cn-shanghai.aliyuncs.com/c7n/frontbase:0.9.0
+FROM registry.hand-china.com/vista/frontbase:0.10.1
 RUN chown -R nginx:nginx /usr/share/nginx/html
 COPY --chown=nginx:nginx ./dist /usr/share/nginx/html
 COPY ./entrypoint.sh /entrypoint.sh

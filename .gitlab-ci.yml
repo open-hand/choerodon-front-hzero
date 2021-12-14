@@ -14,6 +14,7 @@ node_build:
   only:
     - master
     - tags
+    - /^.*hotfix.*$/
     - /^.*release.*$/
 
 docker_build:
@@ -24,6 +25,7 @@ docker_build:
   only:
     - master
     - tags
+    - /^.*hotfix.*$/
     - /^.*release.*$/
 
 sonar:
@@ -41,6 +43,7 @@ sonar:
   only:
     - master
     - tags
+    - /^.*hotfix.*$/
     - /^.*release.*$/
 
 .auto_devops: &auto_devops |

@@ -17,7 +17,7 @@
     "yarn": "^1.13.0"
   },
   "dependencies": {
-    "choerodon-ui": "0.8.78",
+    "choerodon-ui": "1.5.0",
     "core-js": "^3.6.4",
     "hzero-front": "1.8.1",
     "hzero-front-hcnf": "~1.2.0",

@@ -37,7 +37,7 @@
   "resolutions": {
     "conventional-changelog": "~3.0.6",
     "browserslist": "4.8.5",
-    "choerodon-ui": "0.8.78",
+    "choerodon-ui": "1.5.0",
     "url-loader": "1.1.2",
     "css-loader": "1.0.0",
     "optimize-css-assets-webpack-plugin": "5.0.3",

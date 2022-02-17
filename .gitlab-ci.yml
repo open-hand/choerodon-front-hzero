@@ -1,109 +1,170 @@
-image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.11.4
-
+# include: https://api.choerodon.com.cn/devops/v1/projects/1553/ci_contents/pipelines/a2271ec6-02fd-4de9-93de-e6bc9a156355/content.yaml
+# 注意 gitlab-runner 需要设置 /cache 目录为缓存目录， 做好数据持久化。
+image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.11.2
+variables:
+  GIT_CLEAN_FLAGS: none
 stages:
-  - node_build
-  - docker_build
-  - sonar
-
-node_build:
-  stage: node_build
-  script:
-    - node_module
-    - node_build
-
-  only:
-    - master
-    - tags
-    - /^.*release.*$/
-    - /^.*hotfix.*$/
-
+ - node_build_parent
+ - node_build_packages
+ - node_build_merge_packages
+ - docker_build
+ - chart_build
+node_build_parent:
+ image: registry.cn-hangzhou.aliyuncs.com/hzero-cli/cifront:0.0.1
+ stage: node_build_parent
+ script:
+   - free -h
+   - set_parent_cache
+ only:
+   - master
+   - tags
+   - /^.*release.*$/
+   - /^.*hotfix.*$/
+node_build_merge_packages:
+ image: registry.cn-hangzhou.aliyuncs.com/hzero-cli/cifront:0.0.1
+ stage: node_build_merge_packages
+ script:
+   - export -f merge_packages
+   - find $TEMP_DIR -maxdepth 1 -name "dist_*.tar.gz" | xargs -n 1 -I {} bash -c "merge_packages {}"
+   - node scripts/refreshMicroConfig.js
+   - tar -zcf $TEMP_DIR/dist.tar.gz ./dist
+ only:
+   - master
+   - tags
+   - /^.*release.*$/
+   - /^.*hotfix.*$/
+build_package:
+ parallel: 5
+ image: registry.cn-hangzhou.aliyuncs.com/hzero-cli/cifront:0.0.1
+ stage: node_build_packages
+ script:
+   - export BUILD_PACKAGES=`node ./scripts/gitlab_parallel_get_current_packages.js`;
+   - |
+    if [ -z "$BUILD_PACKAGES" ]; then
+      exit
+    fi 
+   - node_build_packages $BUILD_PACKAGES
+ only:
+   - master
 docker_build:
-  stage: docker_build
-  script:
-    - (docker_build)
-    - chart_build
-  only:
-    - master
-    - tags
-    - /^.*release.*$/
-    - /^.*hotfix.*$/
-
-sonar:
-  stage: sonar
-  script:
-    - >-
-        sonar-scanner -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN
-        -Dsonar.gitlab.project_id=$CI_PROJECT_PATH
-        -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA
-        -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
-        -Dsonar.analysis.serviceGroup=$GROUP_NAME
-        -Dsonar.analysis.commitId=$CI_COMMIT_SHA
-        -Dsonar.projectKey=${GROUP_NAME}:${PROJECT_NAME}
-        -Dsonar.sources=.
-  only:
-    - master
-    - tags
-    - /^.*release.*$/
-    - /^.*hotfix.*$/
+ image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.10.1
+ stage: docker_build
+ script:
+   - export TEMP_DIR=/cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-front
+   - 'echo "gitlab-ci -- 缓存目录: $TEMP_DIR"'
+   - if [ -f "$TEMP_DIR/dist.tar.gz" ]; then tar -zxf $TEMP_DIR/dist.tar.gz; fi
+   - saveImageMetadata
+   - kaniko --skip-tls-verify -c $PWD/. -f $PWD/Dockerfile -d ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}
+ only:
+   - master
+chart_build:
+ image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.10.1
+ stage: chart_build
+ script:
+   - chart_build
+ only:
+   - master
 
 .auto_devops: &auto_devops |
-  http_status_code=`curl -o .auto_devops.sh -s -m 10 --connect-timeout 10 -w %{http_code} "${CHOERODON_URL}/devops/ci?token=${Token}&type=front"`
+  http_status_code=`curl -o .auto_devops.sh -s -m 10 --connect-timeout 10 -w %{http_code} "${CHOERODON_URL}/devops/ci?token=${Token}&type=microservice"`
   if [ "$http_status_code" != "200" ]; then
-    cat .auto_devops.sh
+    cat ./.auto_devops.sh
     exit 1
   fi
-  source .auto_devops.sh
+  source ./.auto_devops.sh
+
   export TEMP_DIR=/cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-front
   echo "gitlab-ci -- 缓存目录: $TEMP_DIR"
-  function node_module(){
-    #   if [ -f "./dist/.commitId" ]; then
-    #     export LAST_BUILD_PARENT_GIT_HEAD=`cat ./dist/.commitId` # 获取上一次 build 父项目时的 提交代码版本
-    #     export CURRENT_GIT_HEAD=`git log -1 --pretty=format:"%H"` # 获取当前提交代码版本
-    #     export YARN_LOCK_CHANGE_LOG=`git diff $LAST_BUILD_PARENT_GIT_HEAD $CURRENT_GIT_HEAD  --shortstat -- yarn.lock` # 对比两次提交版本中的 yarn.lock 是否变化
-    #     if [[ -n "$YARN_LOCK_CHANGE_LOG" ]] ;then # 如果 yarn.lock 发生变化, 需要更新缓存。
-    #       echo -e "gitlab-ci -- yarn.lock 发生变化, 需要清除之前编译时留下来的缓存。\n\t $YARN_LOCK_CHANGE_LOG"
-    #       export CLEAR_TEMP_DIR=true
-    #       echo "warning: 需要清空 $CLEAR_TEMP_DIR"
-    #     fi
-    #   else
-    #     export CLEAR_TEMP_DIR=true
-    #     echo "warning: 需要清空 $CLEAR_TEMP_DIR"
-    #   fi
-    #   if  [[ $CLEAR_TEMP_DIR =~ "true" ]] ;then
-    #     echo "gitlab-ci -- 开始清除之前编译缓存。"
-    #     rm -rf $TEMP_DIR
-    #   fi
-    #   echo "gitlab-ci -- 开始清除之前编译缓存。"
-    #   rm -rf $TEMP_DIR
-      echo "gitlab-ci -- 开始安装依赖"
-    #   npm cache clean --force
-      yarn --registry http://nexus.saas.hand-china.com/repository/hzero-npm-group
-      echo "gitlab-ci -- 结束安装依赖"
+  function set_parent_cache(){
+     if  [[ $CLEAR_TEMP_DIR =~ "true" ]] ;then
+       echo "==: 清空缓存目录：$TEMP_DIR"
+       rm -rf $TEMP_DIR
+     fi
+     if [ -f "$TEMP_DIR/dist_parent.tar.gz" ]; then
+       tar -zxf $TEMP_DIR/dist_parent.tar.gz
+     fi
+     if [ -f "$TEMP_DIR/node_modules.tar.gz" ]; then
+       tar -zxf $TEMP_DIR/node_modules.tar.gz
+     fi 
+     if [ -f "./dist_parent/.commitId" ]; then
+       export LAST_BUILD_PARENT_GIT_HEAD=`cat ./dist_parent/.commitId` # 获取上一次 build 父项目时的 提交代码版本
+       export CURRENT_GIT_HEAD=`git log -1 --pretty=format:"%H"` # 获取当前提交代码版本
+       export YARN_LOCK_CHANGE_LOG=`git diff $LAST_BUILD_PARENT_GIT_HEAD $CURRENT_GIT_HEAD  --shortstat -- yarn.lock` # 对比两次提交版本中的 yarn.lock 是否变化
+       export GIT_DIFF_PARENT=`git diff --stat ${CURRENT_GIT_HEAD} ${LAST_BUILD_PARENT_GIT_HEAD} src`
+       if [[ $GIT_DIFF_PARENT ]] ;then 
+         echo 父模块发生变化
+       fi
+       if [[ -n "$YARN_LOCK_CHANGE_LOG" ]] ;then 
+         # 如果 yarn.lock 发生变化, 需要更新缓存。
+         echo -e "gitlab-ci -- yarn.lock 发生变化, 需要清除之前编译时留下来的缓存。\n\t $YARN_LOCK_CHANGE_LOG"
+         export CLEAR_TEMP_DIR=true
+         echo "==: yarn.lock 变更, 重新编译"
+       else
+         echo "==: 执行增量编译"
+       fi
+     else
+       export CLEAR_TEMP_DIR=true
+       echo "==: 第一次编译（非增量编译）"
+     fi
+     if  [[ $CLEAR_TEMP_DIR =~ "true" ]] ;then
+       echo "==: 初始化缓存目录：$TEMP_DIR"
+       rm -rf $TEMP_DIR
+      #  避免父工程中引用了子工程导致使用了旧代码的情况
+       rm -rf ./dist_parent
+       rm -rf ./node_modules
+       echo "==: 开始安装依赖"
+       yarn install --no-progress --non-interactive
+       echo "==: 结束安装依赖"
+     fi
+     if [ ! -d "node_modules" ]; then
+       yarn install --no-progress --non-interactive
+     fi
+     npx hzero-cli info
+     if  [[ $CLEAR_TEMP_DIR =~ "true" || $GIT_DIFF_PARENT ]] ;then
+        echo "==: 开始编译"
+        npx cross-env BUILD_DIST_PATH=./dist_parent NODE_OPTIONS='--max_old_space_size=8196' NODE_PROFILE=production hzero-cli build --all-packages --only-build-parent
+        echo "==: 编译完成"
+        mkdir -p $TEMP_DIR
+        tar -zcf $TEMP_DIR/dist_parent.tar.gz ./dist_parent
+        tar -zcf $TEMP_DIR/node_modules.tar.gz ./node_modules
+     fi
   }
-
-  function node_build(){
-    #   if [ -f "$TEMP_DIR/dist.tar.gz" ]; then
-    #     tar -zxf $TEMP_DIR/dist.tar.gz
-    #   fi
-    #   if [ -f "$TEMP_DIR/node_modules-cache.tar.gz" ]; then
-    #     tar -zxf $TEMP_DIR/node_modules-cache.tar.gz
-    #   fi
-      yarn build
-      # 缓存文件
-    #   mkdir -p $TEMP_DIR
-    #   tar -zcf $TEMP_DIR/dist.tar.gz ./dist
-    #   tar -zcf $TEMP_DIR/node_modules-cache.tar.gz ./node_modules/.cache
+  function node_build_packages(){
+    if [ -z "$1" ] ;then
+      echo "必须传入编译的子模块名称!"
+      exit 1
+    fi
+    if [[ -f "$TEMP_DIR/node_modules.tar.gz" ]] && [[ ! -d "node_modules" ]]; then
+      tar -zxf $TEMP_DIR/node_modules.tar.gz
+    fi
+    if [ -f "$TEMP_DIR/dist_${CI_NODE_INDEX:-1}.tar.gz" ]; then
+      tar -zxf $TEMP_DIR/dist_${CI_NODE_INDEX:-1}.tar.gz
+    fi
+    echo "==: 开始编译:"$1
+    # export MODULE_NAME=`echo $1 | sed -r "s/,/__/g"`
+    npx cross-env BUILD_DIST_PATH=./dist_${CI_NODE_INDEX:-1} NODE_OPTIONS='--max_old_space_size=8196' NODE_PROFILE=production hzero-cli build --only-build-micro --build-skip-parent $1
+    echo "==: 编译完成"
+    tar -zcf $TEMP_DIR/dist_${CI_NODE_INDEX:-1}.tar.gz ./dist_${CI_NODE_INDEX:-1}
   }
-
+  function merge_packages(){
+    if [ -z "$1" ] ;then
+      echo "必须传入合并的dist文件路径!"
+      exit 1
+    fi
+    export MODULE_NAME=`echo $1 | sed -r "s/^.*dist_(.*)\.tar\.gz/\1/g"`
+    echo "==: 合并:"$MODULE_NAME
+    tar -zxf $TEMP_DIR/dist_$MODULE_NAME.tar.gz
+    mkdir -p ./dist/
+    cp -r -n -u dist_$MODULE_NAME/* ./dist/
+    rm -rf dist_$MODULE_NAME
+    # rm -rf $1
+  }
   function docker_build(){
-      cd docker
-      tar -zxf $TEMP_DIR/dist.tar.gz
-      docker login -u ${DOCKER_USER} -p ${DOCKER_PWD} ${DOCKER_REGISTRY}
-      docker build --pull -t ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG} .
-      docker push ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}
-      echo "${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}"
+    tar -zxf $TEMP_DIR/dist.tar.gz
+    docker login -u ${DOCKER_USER} -p ${DOCKER_PWD} ${DOCKER_REGISTRY}
+    docker build --pull -t ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG} ${1:-"."}
+    docker push ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}
+    echo "${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}"
   }
-
 before_script:
-  - *auto_devops
-
+ - *auto_devops

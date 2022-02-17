@@ -91,7 +91,7 @@ sonar:
       yarn build
       # 缓存文件
     #   mkdir -p $TEMP_DIR
-      tar -zcf $TEMP_DIR/dist.tar.gz ./dist
+      tar -zxf $TEMP_DIR/dist.tar.gz ./dist
     #   tar -zcf $TEMP_DIR/node_modules-cache.tar.gz ./node_modules/.cache
   }
 

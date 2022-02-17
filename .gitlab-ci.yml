@@ -56,26 +56,28 @@ sonar:
   export TEMP_DIR=/cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-front
   echo "gitlab-ci -- 缓存目录: $TEMP_DIR"
   function node_module(){
-      if [ -f "./dist/.commitId" ]; then
-        export LAST_BUILD_PARENT_GIT_HEAD=`cat ./dist/.commitId` # 获取上一次 build 父项目时的 提交代码版本
-        export CURRENT_GIT_HEAD=`git log -1 --pretty=format:"%H"` # 获取当前提交代码版本
-        export YARN_LOCK_CHANGE_LOG=`git diff $LAST_BUILD_PARENT_GIT_HEAD $CURRENT_GIT_HEAD  --shortstat -- yarn.lock` # 对比两次提交版本中的 yarn.lock 是否变化
-        if [[ -n "$YARN_LOCK_CHANGE_LOG" ]] ;then # 如果 yarn.lock 发生变化, 需要更新缓存。
-          echo -e "gitlab-ci -- yarn.lock 发生变化, 需要清除之前编译时留下来的缓存。\n\t $YARN_LOCK_CHANGE_LOG"
-          export CLEAR_TEMP_DIR=true
-          echo "warning: 需要清空 $CLEAR_TEMP_DIR"
-        fi
-      else
-        export CLEAR_TEMP_DIR=true
-        echo "warning: 需要清空 $CLEAR_TEMP_DIR"
-      fi
-      if  [[ $CLEAR_TEMP_DIR =~ "true" ]] ;then
-        echo "gitlab-ci -- 开始清除之前编译缓存。"
-        rm -rf $TEMP_DIR
-      fi
+    #   if [ -f "./dist/.commitId" ]; then
+    #     export LAST_BUILD_PARENT_GIT_HEAD=`cat ./dist/.commitId` # 获取上一次 build 父项目时的 提交代码版本
+    #     export CURRENT_GIT_HEAD=`git log -1 --pretty=format:"%H"` # 获取当前提交代码版本
+    #     export YARN_LOCK_CHANGE_LOG=`git diff $LAST_BUILD_PARENT_GIT_HEAD $CURRENT_GIT_HEAD  --shortstat -- yarn.lock` # 对比两次提交版本中的 yarn.lock 是否变化
+    #     if [[ -n "$YARN_LOCK_CHANGE_LOG" ]] ;then # 如果 yarn.lock 发生变化, 需要更新缓存。
+    #       echo -e "gitlab-ci -- yarn.lock 发生变化, 需要清除之前编译时留下来的缓存。\n\t $YARN_LOCK_CHANGE_LOG"
+    #       export CLEAR_TEMP_DIR=true
+    #       echo "warning: 需要清空 $CLEAR_TEMP_DIR"
+    #     fi
+    #   else
+    #     export CLEAR_TEMP_DIR=true
+    #     echo "warning: 需要清空 $CLEAR_TEMP_DIR"
+    #   fi
+    #   if  [[ $CLEAR_TEMP_DIR =~ "true" ]] ;then
+    #     echo "gitlab-ci -- 开始清除之前编译缓存。"
+    #     rm -rf $TEMP_DIR
+    #   fi
+      echo "gitlab-ci -- 开始清除之前编译缓存。"
+      rm -rf $TEMP_DIR
       echo "gitlab-ci -- 开始安装依赖"
-      npm cache clean --force
-      npm i --registry http://nexus.saas.hand-china.com/repository/hzero-npm-group
+    #   npm cache clean --force
+      yarn --registry http://nexus.saas.hand-china.com/repository/hzero-npm-group
       echo "gitlab-ci -- 结束安装依赖"
   }
 

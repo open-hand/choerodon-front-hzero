@@ -86,7 +86,7 @@ sonar:
       if [ -f "$TEMP_DIR/node_modules-cache.tar.gz" ]; then
         tar -zxf $TEMP_DIR/node_modules-cache.tar.gz
       fi
-      yarn build:production
+      yarn build
       # 缓存文件
       mkdir -p $TEMP_DIR
       tar -zcf $TEMP_DIR/dist.tar.gz ./dist

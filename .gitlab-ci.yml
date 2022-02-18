@@ -3,7 +3,7 @@ image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.11.4
 stages:
   - node_build
   - docker_build
-  - sonar
+#   - sonar
 
 node_build:
   stage: node_build

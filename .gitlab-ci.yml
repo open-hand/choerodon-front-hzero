@@ -87,7 +87,7 @@ docker_build:
     #   if [ -f "$TEMP_DIR/node_modules-cache.tar.gz" ]; then
     #     tar -zxf $TEMP_DIR/node_modules-cache.tar.gz
     #   fi
-      yarn build
+      yarn build:production
       # 缓存文件
       mkdir -p $TEMP_DIR
       tar -zcf $TEMP_DIR/dist.tar.gz ./dist

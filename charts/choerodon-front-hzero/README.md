@@ -1,6 +1,6 @@
 # choerodon-front-hzero
 
-Gateway of Choerodon.
+Hzero front of Choerodon.
 
 ## Installing the Chart
 

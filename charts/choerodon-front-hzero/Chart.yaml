@@ -6,13 +6,14 @@ dependencies:
   - name: common
     repository: https://openchart.choerodon.com.cn/choerodon/c7n
     version: 1.x.x
-description: Gateway of Choerodon.
+description: Hzero front of Choerodon.
 engine: gotpl
 home: https://github.com/open-hand/choerodon-front-hzero/tree/master/chart/choerodon-front-hzero
 icon: https://ui-avatars.com/api/?name=choerodon-front-hzero
 keywords:
   - choerodon
-  - gateway
+  - hzero
+  - front
 maintainers:
   - email: zhuchiyu@vip.hand-china.com
     name: choerodon
